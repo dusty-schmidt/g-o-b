@@ -1,8 +1,16 @@
 # Ignore common unwanted files globally
 **/.DS_Store
+**/Thumbs.db
 **/.env
 **/__pycache__/
+**/*.pyc
 **/.conda/
+**/*.log
+**/*.tmp
+**/*.temp
+**/*.bak
+**/*.backup
+**/*~
 
 #Ignore cursor rules
 .cursor/
