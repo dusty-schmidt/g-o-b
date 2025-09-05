@@ -26,7 +26,7 @@ class FileInfo(TypedDict):
     message: str
 
 async def get_file_info(path: str) -> FileInfo:
-    abs_path = files.get_abs_path(path)
+    abs_path = files.fix_dev_path(path)
     exists = os.path.exists(abs_path)
     message = ""
 

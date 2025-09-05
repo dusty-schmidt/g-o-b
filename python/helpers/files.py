@@ -356,10 +356,12 @@ def deabsolute_path(path:str):
     return os.path.relpath(path, get_base_dir())
 
 def fix_dev_path(path:str):
-    "On dev environment, convert /a0/... paths to local absolute paths"
+    "On dev environment, convert /gob/... (or legacy /a0/...) paths to local absolute paths"
     from python.helpers.runtime import is_development
     if is_development():
-        if path.startswith("/a0/"):
+        if path.startswith("/gob/"):
+            path = path.replace("/gob/", "")
+        elif path.startswith("/a0/"):
             path = path.replace("/a0/", "")
     return get_abs_path(path)
 

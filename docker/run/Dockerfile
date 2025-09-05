@@ -1,6 +1,6 @@
-# Use the pre-built base image for A0
-# FROM agent-zero-base:local
-FROM agent0ai/agent-zero-base:latest
+# Use the pre-built base image for GOB
+# FROM gob-base:local
+FROM gob-base:local
 
 # Check if the argument is provided, else throw an error
 ARG BRANCH
@@ -10,18 +10,22 @@ ENV BRANCH=$BRANCH
 # Copy filesystem files to root
 COPY ./fs/ /
 
+# Normalize line endings for shell scripts copied into the image
+RUN find /ins -type f -name "*.sh" -exec sed -i 's/\r$//' {} + && \
+    find /exe -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
+
 # pre installation steps
 RUN bash /ins/pre_install.sh $BRANCH
 
-# install A0
-RUN bash /ins/install_A0.sh $BRANCH
+# install GOB
+RUN bash /ins/install_gob.sh $BRANCH
 
 # install additional software
 RUN bash /ins/install_additional.sh $BRANCH
 
-# cleanup repo and install A0 without caching, this speeds up builds
+# cleanup repo and install GOB without caching, this speeds up builds
 ARG CACHE_DATE=none
-RUN echo "cache buster $CACHE_DATE" && bash /ins/install_A02.sh $BRANCH
+RUN echo "cache buster $CACHE_DATE" && bash /ins/install_gob2.sh $BRANCH
 
 # post installation steps
 RUN bash /ins/post_install.sh $BRANCH
@@ -29,7 +33,7 @@ RUN bash /ins/post_install.sh $BRANCH
 # Expose ports
 EXPOSE 22 80 9000-9009
 
-RUN chmod +x /exe/initialize.sh /exe/run_A0.sh /exe/run_searxng.sh /exe/run_tunnel_api.sh
+RUN chmod +x /exe/initialize.sh /exe/run_gob.sh /exe/run_searxng.sh /exe/run_tunnel_api.sh
 
 # initialize runtime and switch to supervisord
 CMD ["/exe/initialize.sh", "$BRANCH"]
