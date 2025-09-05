@@ -14,6 +14,7 @@ import models
 from python.helpers import extract_tools, files, errors, history, tokens
 from python.helpers import dirty_json
 from python.helpers.print_style import PrintStyle
+from python.helpers.naming_service import get_naming_service
 
 from langchain_core.prompts import (
     ChatPromptTemplate,
@@ -296,7 +297,16 @@ class Agent:
 
         # non-config vars
         self.number = number
-        self.agent_name = f"GOB{self.number if self.number > 0 else ''}"
+        
+        # Use naming service to get dynamic agent names
+        naming_service = get_naming_service()
+        if self.number == 0:  # Main agent
+            self.agent_name = naming_service.get_main_agent_name()
+        else:  # Subordinate agent
+            # Use agent profile as agent type, with context from number
+            agent_type = self.config.profile or "general"
+            context_id = f"{agent_type}_{self.number}"
+            self.agent_name = naming_service.get_subordinate_agent_name(agent_type, context_id)
 
         self.history = history.History(self)  # type: ignore[abstract]
         self.last_user_message: history.Message | None = None

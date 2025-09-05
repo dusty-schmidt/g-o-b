@@ -1,6 +1,6 @@
 {
-  "name": "Agent Zero",
-  "short_name": "Agent Zero",
+  "name": "GOB",
+  "short_name": "GOB",
   "description": "Autonomous AI agent",
   "start_url": "/",
   "display": "standalone",
