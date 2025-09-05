@@ -4,16 +4,22 @@ A customized fork of Agent Zero focused on orchestration and task management.
 
 ## 🚀 Quick Start
 
-### Windows Users:
+### Universal (Any Platform):
 ```powershell
-cd C:\Users\JANET\dusty\g-o-b
-.\run-gob-docker.ps1
+# Auto-detects Windows/Linux and runs appropriate script
+.\start-gob.ps1
+
+# Check status
+.\status.ps1
 ```
 
-### Linux Users:
-```bash
-cd ~/Development/g-o-b
-docker start g-o-b-dev
+### Platform-Specific:
+```powershell
+# Windows
+.\scripts\windows\run-gob-docker.ps1
+
+# Linux
+./scripts/linux/run-gob-docker.sh
 ```
 
 **Access GOB**: http://localhost:8080 (Windows) or http://localhost:50080 (Linux)
@@ -42,7 +48,7 @@ docker start g-o-b-dev
 - **Auto-start**: Enabled via Docker Desktop
 - **Volume Mount**: Live code editing
 
-## 📂 Project Structure
+## 📋 Project Structure
 
 ```
 g-o-b/
@@ -52,13 +58,15 @@ g-o-b/
 │   ├── DOCKER_ARCHITECTURE.md # Docker system docs
 │   ├── README_SETUP.md      # Quick reference
 │   └── a0readme/            # Original Agent Zero reference docs
+├── scripts/                 # Cross-platform management scripts
+│   ├── windows/             # Windows PowerShell scripts
+│   └── linux/               # Linux/macOS bash scripts
 ├── docker/                  # Docker configuration
 │   ├── base/               # Base image files
 │   └── run/                # Runtime configuration  
 ├── python/                 # Python application code
-├── run-gob-docker.ps1      # Windows startup script
-├── gob-status.ps1          # Windows status checker
-├── docker-cleanup.ps1      # Windows cleanup utility
+├── start-gob.ps1           # Universal startup script
+├── status.ps1              # Universal status checker
 ├── DockerfileLocal         # Main Docker build file
 └── .env                    # Configuration and API keys
 ```
