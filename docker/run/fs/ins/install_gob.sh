@@ -41,5 +41,5 @@ uv pip install -r /git/gob/requirements.txt
 bash /ins/install_playwright.sh "$@"
 
 # Preload GOB
-python /git/gob/preload.py --dockerized=true
+python /git/gob/scripts/preload.py --dockerized=true
 

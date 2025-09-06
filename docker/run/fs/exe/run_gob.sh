@@ -3,8 +3,8 @@
 . "/ins/setup_venv.sh" "$@"
 . "/ins/copy_gob.sh" "$@"
 
-python /gob/prepare.py --dockerized=true
-# python /gob/preload.py --dockerized=true # no need to run preload if it's done during container build
+python /gob/scripts/prepare.py --dockerized=true
+# python /gob/scripts/preload.py --dockerized=true # no need to run preload if it's done during container build
 
 echo "Starting GOB..."
 exec python /gob/run_ui.py \

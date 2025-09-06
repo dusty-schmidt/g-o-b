@@ -1,0 +1,4 @@
+#consider ways to organize project
+-i dont love having so many really essential .py files at the project root, makes me nervous someone will fat finger something and its visually not what i like to see, i like clean and more minimalism at the top of the directory
+-if those could be considered 'runtime' files, maybe a runtime/ directory?  just a thought
+-my dream would be a simple terminal like interface where i can run the container if its not up yet, see the status of it if its running, the ability to restart the container, and stop the container.  this interface could double as the entry point for initial setup, and then spin up the little monitor when its scompleted, and right off the bat each time going forward?  come up with a plan for that, and if we can do it without unnecessary complication, its worth considering

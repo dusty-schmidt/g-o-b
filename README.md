@@ -4,25 +4,30 @@ A customized fork of Agent Zero focused on orchestration and task management.
 
 ## 🚀 Quick Start
 
-### Universal (Any Platform):
-```powershell
-# Auto-detects Windows/Linux and runs appropriate script
-.\start-gob.ps1
+### Native CLI (Recommended):
+```bash
+# Start GOB server
+gob start
 
 # Check status
-.\status.ps1
+gob status
+
+# View logs
+gob logs
+
+# Restart if needed
+gob restart
+
+# Stop server
+gob stop
 ```
 
-### Platform-Specific:
-```powershell
-# Windows
-.\scripts\windows\run-gob-docker.ps1
+**Access GOB**: http://localhost:50080
 
-# Linux
-./scripts/linux/run-gob-docker.sh
-```
-
-**Access GOB**: http://localhost:8080 (Windows) or http://localhost:50080 (Linux)
+### Requirements:
+- Python 3.11+ with Miniconda/Anaconda
+- `gob` conda environment (see setup guide)
+- All dependencies installed via mamba/conda
 
 ## 📚 Documentation
 
