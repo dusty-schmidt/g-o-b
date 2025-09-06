@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../ideas"
+		}
+	],
+	"settings": {
+		"js/ts.implicitProjectConfig.checkJs": true
+	}
+}
