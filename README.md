@@ -1,99 +1,135 @@
 # GOB (General Orchestrator Bot)
 
-A customized fork of Agent Zero focused on orchestration and task management.
+A customized AI agent system built on Agent Zero, focused on orchestration and autonomous task management.
 
 ## 🚀 Quick Start
 
-### Native CLI (Recommended):
+### Native Development (Recommended)
+
 ```bash
 # Start GOB server
-gob start
+./gob start
 
-# Check status
-gob status
+# Check status and health
+./gob status
 
-# View logs
-gob logs
+# View recent logs
+./gob logs
 
-# Restart if needed
-gob restart
+# Open in browser
+./gob url
 
 # Stop server
-gob stop
+./gob stop
 ```
 
-**Access GOB**: http://localhost:50080
+**Default Access**: http://localhost:50080
 
-### Requirements:
-- Python 3.11+ with Miniconda/Anaconda
-- `gob` conda environment (see setup guide)
-- All dependencies installed via mamba/conda
-
-## 📚 Documentation
-
-| Platform | Setup Guide | Purpose |
-|----------|-------------|---------|
-| **Windows** | [docs/WINDOWS_SETUP.md](docs/WINDOWS_SETUP.md) | Complete Windows setup and usage |
-| **Linux** | [docs/DEBIAN_SETUP.md](docs/DEBIAN_SETUP.md) | Debian/Ubuntu setup guide |
-| **Docker** | [docs/DOCKER_ARCHITECTURE.md](docs/DOCKER_ARCHITECTURE.md) | Docker build system explanation |
-| **Quick Start** | [docs/README_SETUP.md](docs/README_SETUP.md) | Navigation hub and common tasks |
-
-## 🔧 Management Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `run-gob-docker.ps1` | Windows: Start/restart GOB |
-| `gob-status.ps1` | Windows: Check container status |
-| `docker-cleanup.ps1` | Windows: Clean up Docker resources |
-
-## 🎯 Current Configuration
-
-- **Windows**: Port 8080 (HTTP), 2222 (SSH)
-- **Linux**: Port 50080 (HTTP), 50022 (SSH)
-- **Auto-start**: Enabled via Docker Desktop
-- **Volume Mount**: Live code editing
-
-## 📋 Project Structure
-
-```
-g-o-b/
-├── docs/                    # Documentation
-│   ├── WINDOWS_SETUP.md     # Windows setup guide
-│   ├── DEBIAN_SETUP.md      # Linux setup guide  
-│   ├── DOCKER_ARCHITECTURE.md # Docker system docs
-│   ├── README_SETUP.md      # Quick reference
-│   └── a0readme/            # Original Agent Zero reference docs
-├── scripts/                 # Cross-platform management scripts
-│   ├── windows/             # Windows PowerShell scripts
-│   └── linux/               # Linux/macOS bash scripts
-├── docker/                  # Docker configuration
-│   ├── base/               # Base image files
-│   └── run/                # Runtime configuration  
-├── python/                 # Python application code
-├── start-gob.ps1           # Universal startup script
-├── status.ps1              # Universal status checker
-├── DockerfileLocal         # Main Docker build file
-└── .env                    # Configuration and API keys
-```
-
-## 🛠️ Development Workflow
-
-1. **Make changes** to code files
-2. **Restart container** to apply changes:
-   - Windows: `docker restart g-o-b`
-   - Linux: `docker restart g-o-b-dev`
-3. **Test** at your local URL
-4. **Commit** when ready: `git add . && git commit -m "description"`
-
-## 🆘 Need Help?
-
-1. **Windows Users**: See [docs/WINDOWS_SETUP.md](docs/WINDOWS_SETUP.md)
-2. **Linux Users**: See [docs/DEBIAN_SETUP.md](docs/DEBIAN_SETUP.md)
-3. **Docker Issues**: See [docs/DOCKER_ARCHITECTURE.md](docs/DOCKER_ARCHITECTURE.md)
-4. **Quick Commands**: See [docs/README_SETUP.md](docs/README_SETUP.md)
+### Requirements
+- **Python**: 3.11+ (via Miniconda/Anaconda)
+- **Environment**: `gob` conda environment with all dependencies
+- **System**: Linux/macOS/Windows with bash support
 
 ---
 
-**Version**: Custom GOB Implementation  
-**Base**: Agent Zero Fork  
-**Platform**: Windows/Linux with Docker
+## 📋 Setup Process
+
+### 1. Environment Setup
+```bash
+# Create and activate conda environment
+conda create -n gob python=3.11
+conda activate gob
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Configuration
+```bash
+# Run initial setup
+python scripts/prepare.py
+
+# Optional: Preload models
+python scripts/preload.py
+```
+
+### 3. Launch GOB
+```bash
+# Using the CLI tool (auto-detects environment)
+./gob start
+
+# Or directly
+python run_ui.py --host 0.0.0.0 --port 50080
+```
+
+---
+
+## 📁 Project Structure
+
+```
+gob/
+├── gob                 # CLI management tool
+├── agent.py           # Core agent system
+├── models.py          # LLM configuration
+├── initialize.py      # System initialization
+├── run_ui.py          # Main server entry point
+├── run_tunnel.py      # Tunnel server
+├── scripts/           # Utility scripts
+│   ├── preload.py     # Model preloading
+│   ├── prepare.py     # Environment setup
+│   └── update_reqs.py # Requirements updater
+├── python/            # Framework core
+├── webui/             # Web interface
+├── docs/              # Documentation
+└── worklogs/          # Development history
+```
+
+---
+
+## 🔧 CLI Management
+
+The `./gob` script provides comprehensive server management:
+
+| Command | Description |
+|---------|-------------|
+| `./gob start` | Start server with health checks |
+| `./gob stop` | Graceful shutdown |
+| `./gob restart` | Stop and start server |
+| `./gob status` | Show server status and process info |
+| `./gob logs [N]` | Show last N log lines (default: 50) |
+| `./gob follow` | Follow logs in real-time |
+| `./gob url` | Open GOB in browser |
+| `./gob help` | Show all available commands |
+
+---
+
+## 📚 Documentation
+
+- **[Setup Guide](docs/SETUP.md)** - Detailed installation instructions
+- **[Development Worklogs](worklogs/)** - Session notes and progress tracking
+- **[TODO List](TODO.md)** - Planned improvements and features
+
+---
+
+## 🛠️ Development
+
+### Making Changes
+1. Edit code in your preferred IDE
+2. Test changes: `./gob restart`
+3. View logs: `./gob logs` or `./gob follow`
+4. Commit significant changes and update worklogs
+
+### Adding Dependencies
+```bash
+# Add to requirements.txt, then:
+pip install -r requirements.txt
+# Update lockfile:
+python scripts/update_reqs.py
+```
+
+### Environment Management
+- GOB automatically detects and activates the `gob` conda environment
+- Supports both `mamba` and `conda` package managers
+- Configuration stored in environment variables and settings files
+
+
